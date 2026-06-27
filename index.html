@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<title>Apple clone</title>
+    <style>
+        html{
+            background-color:#f5f5f7;
+        }
+        #apple{
+            font-size: 20px;
+        }
+        .navigations{
+            display: flex;
+            float: right;
+            gap:20px;
+        }
+        .blue{
+            color:blue;
+        }
+        .crousel{
+            width:100%;
+            overflow-x: auto;
+            margin:3em auto;
+            display: flex;
+            gap:1em;
+            text-align: center;
+            scroll-behavior: smooth;
+            position:relative;
+            anchor-name: --crousel;
+            scroll-snap-type: x mandatory;
+            scroll-marker-group:after;
+        }
+        .crousel::scroll-marker-group{
+            display: flex;
+            justify-content: center;
+            gap:0.5em;
+        }
+        .crousel > div{
+            min-width:100%;
+            box-sizing:border-box;
+        }
+        .crousel::-webkit-scrollbar{
+            display: none;
+        }
+        .crousel::scroll-button(right){
+            content:'>';
+            border:none;
+            background-color:#f5f5f7;
+            font-family: consolas;
+            font-size:20px;
+            cursor:pointer;
+            position: fixed;
+            position-anchor: --crousel;
+            position-area: right center;
+        }
+        .crousel::scroll-button(left){
+            content:'<';
+            border:none;
+            background-color:#f5f5f7;
+            font-family: consolas;
+            font-size:20px;
+            cursor:pointer;
+            position: fixed;
+            position-anchor: --crousel;
+            position-area: left center;
+        }
+        .card{
+            scroll-snap-align: start;
+        }
+        .card::scroll-marker{
+            content:"";
+            height:10px;
+            width:10px;
+            background-color:grey;
+            border-radius:50%;
+        }
+        .card::scroll-marker:target-current{
+            background-color:black;
+        }
+        .Main-texts{
+            margin:30px;
+        }
+        .store{
+            font-family:sans-serif;
+            font-size: 50px;
+        }
+        .mini-store{
+            font-family:sans-serif;
+        }
+        .links{
+            display: flex;
+            flex-direction:column;
+            margin:30px;
+        }
+        a{
+            text-decoration: none;
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size:12px;
+        }
+        .products{
+            display: flex;
+            flex-direction: row;
+            overflow: auto;
+            anchor-name: --maco;
+            position: relative;
+            scroll-snap-type:x mandatory;
+        }
+        .products::-webkit-scrollbar{
+            display: none;
+        }
+        .products::scroll-button(right){
+            content:'>';
+            border:none;
+            font-family:consolas;
+            background-color: black;
+            color:white;
+            border-radius:50%;
+            width:30px;
+            height:30px;
+            position-anchor: --maco;
+            position-area:right center;
+            position:absolute;
+            cursor: pointer;
+        }
+        .products::scroll-button(left){
+            content:'<';
+            border:none;
+            font-family:consolas;
+            background-color: black;
+            color:white;
+            border-radius:50%;
+            width:30px;
+            height:30px;
+            position-anchor: --maco;
+            position-area:left center;
+            position:absolute;
+            cursor: pointer;
+        }
+        .products::scroll-button(right):disabled ,.products::scroll-button(left):disabled{
+            background-color:grey;
+            color:black;
+            cursor:not-allowed;
+        }
+        img{
+            width:100px;
+             margin-top: 30px;
+        }
+        .mac{
+            text-align: center;
+            font-size:13px;
+            font-family:Arial, Helvetica, sans-serif;
+            scroll-snap-align: start;
+        }
+        .grey-class{
+            margin-top:50px;
+            font-family:sans-serif;
+        }
+        .grey{
+            color:grey
+        }
+        .orange-card{
+            width:500px;
+            position:relative;
+        }
+        .orange-card::before{
+            content: 'iPhone 17 Pro';
+            position: absolute;
+            z-index:1;
+            color:white;
+            margin-top:50px;
+            margin-left:30px;
+            font-size:25px;
+            font-family:sans-serif
+        }
+        .orange-mobile{
+            width:350px;
+            position:relative;
+            display: block;
+            border-radius:50px;
+            transition:transform 0.3s ease;
+        }
+        .orange-mobile:hover{
+            transform: scale(1.03);
+            box-shadow: 1px 1px 10px;
+        }
+        .big-container{
+            display: flex;
+            flex-direction: row;
+            gap:20px;
+            overflow-x: auto;
+        }
+        .big-container::-webkit-scrollbar{
+            display: none;;
+        }
+        .macbook-neo{
+            width:500px;
+            position:relative;
+        }
+        .macbook-neo-image{
+            width:350px;
+            position:relative;
+            display: block;
+            border-radius:50px;
+            transition: transform 0.3s ease;
+        }
+        .macbook-neo-image:hover{
+            transform: scale(1.03);
+            box-shadow: 1px 1px 10px;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+    <i id="apple" class="fa-brands fa-apple"></i>
+    <nav class="navigations">
+        <i class="fa-solid fa-search"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
+        <i class="fa-solid fa-bars"></i>
+    </nav>
+    </div>
+    <div class="crousel">
+        <div class="card"><P>Get up to 6 months of No Cost EMI Footnote ◊ plus up to ₹10000.00 instant cashback Footnote ∆ on selected products with eligible cards.<span class="blue">See offers</span></P></div>
+        <div class="card">Now you can buy Apple Watch with education savings.<span> Learn more</span></div>
+    </div>
+    <div class="Main-texts">
+        <h1 class="store">Store</h1>
+        <h4 class="mini-store">The best way to buy the<br> product you love</h4>
+    </div>
+    <div class="links">
+        <a href="#something">Connect with a Specialist <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a href="#2something">Find a Apple Store<i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    </div>
+    <figure class="products">
+        <div class="mac">
+            <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-13-mac-nav-202603?wid=400&hei=260&fmt=png-alpha&.v=M1Q3OGxnb1lBaHhqNjZ2OVRXZmx4V2duSGVkdTVncGZYc0RnS1paU3IySCsrUlZaSVRoWVYzU0Qra0FoTmUwNng2bitObzZwQzk4cEorV1dZdzhIazAreDNWYWNLK1lESGRXY25VRzdWVTQ">
+        <figcaption>Mac</figcaption>
+        </div>
+       <div class="mac">
+         <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-13-iphone-nav-202509?wid=400&hei=260&fmt=png-alpha&.v=dW5XbHI1eDVpd01qWUU4bFRtWGZXM1doT212VzJoWjBSKzRpbmNETHN1QjVoZlhhY1p4QWdsTjFNaGRHM3FYWW15d1FhSDJ0bkR0ZGZtUjZJNmFveGVEVGM2Z3VEVWcvT3Z6KzhkR29Ddmc">
+         <figcaption>Mobiles</figcaption>
+       </div>
+        <div class="mac">
+            <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-13-ipad-nav-202405?wid=400&hei=260&fmt=png-alpha&.v=dW5XbHI1eDVpd01qWUU4bFRtWGZXNGFLQTJVNnlNQmQrVmRBYnZYei9jckUzelNmMnRxajE0NHhmMWtLazl6eG53M0FRZHBXNTh1U1lFVEtSR2YzTm5qbE56RWRpRFNIRXZvbkd2S0l5dTg">
+            <figcaption>Tablets</figcaption>
+        </div>
+       <div class="mac">
+         <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-13-watch-nav-202509_GEO_IN?wid=400&hei=260&fmt=png-alpha&.v=S0tSVzBtSkRkSFFhMm1zS1NmeWtkK0gvNGFhODF5SWpidW9tVnFmL2IrcnZGQmhUaHlPN016cFdzNFJtZThkQ2M5THdmR1U4Nmp4b2NFbEg2N21UQzYzZVFZZGtHNUI4c1NvME1xTTYxSzZ1ZUVMek0rc2U0U3QwOE5USS9PYTQ">
+         <figcaption>Watches</figcaption>
+       </div>
+        <div class="mac">
+            <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-13-airpods-nav-202509?wid=400&hei=260&fmt=png-alpha&.v=Q0Z1bWFqMUpRRnp3T0Y0VWJpdk1yMDhFUStvWHB3SDlDa3VrdUZORWRqeld1aTN5QlRYNG5PRjJxc2d1RklXbVM0TjRWdzF2UjRGVEY0c3dBQVZ6VGZUMjJQZFhhT2thWmkxZjhra3FyZEk">
+            <figcaption>Airpods</figcaption>
+        </div>
+        <div class="mac">
+            <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-13-accessories-nav-202603?wid=400&hei=260&fmt=png-alpha&.v=QnhsNk96S0o4R1dkN2FveStNM1hwNzZGMHVrNGw2NTM5Vmk2bHZzMXQ3aUlac2ROMkdFNG0rMXdMQ0t2WTVlSFBrcjVFNVdueFRVbVY3TGtiL2RjUWVXQ0tWTWFGNXA2NmlzMmRVQ1l6WmlFMHVWQmxPTEFhTVNvVStGSjlxajM">
+            <figcaption>Accesories</figcaption>
+        </div>
+        <div class="mac">
+            <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-13-homepod-nav-202301?wid=400&hei=260&fmt=png-alpha&.v=WVcvamRucHVMMWs5SXZ3bVJ3Q2hpZGR0czFXNWdCUW14eTN2U29pLzNMcld1aTN5QlRYNG5PRjJxc2d1RklXbVM0TjRWdzF2UjRGVEY0c3dBQVZ6VFJmbWU0TjJLamxsdTltNkZVZ1RhbDA">
+            <figcaption>HomePod</figcaption>
+        </div>
+    </figure>
+    <h2 class="grey-class">The latest. <span class="grey">Take a look at what’s new right now.</span></h2>
+   <div class="big-container">
+    <div class="orange-card">
+     <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-40-iphone-17-pro-202509?wid=800&hei=1000&fmt=jpeg&qlt=90&.v=UzBXQnlhUWdraTNvNU1Kb3pEQlpXQjVOVStZaG1ncWFjNXVUZkZ4anVIYlNab1lJcUZwSFVRK1htYlNmZUtPTG54cStVNU5BQmhzbkxYRGxDWUc3R2RBR0JWVHBRN0NKVm11SFZzeU45T2VCTXFJbjVIbEFUN05pTHFFYldZYzg" class="orange-mobile">
+   </div>
+   <div class="macbook-neo">
+    <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-40-macbook-neo-202603?wid=800&hei=1000&fmt=jpeg&qlt=90&.v=MjhMcWJ2MGZwbXEwdnBkcUN6ZnhyMENkWWUxVnpsancwa2o0MWNIbE5maHFTRjNxbmh1UnU2R29ibGdpZUFXcy85S3R4M0M3WGhIQVNOK3lBdUI5K1FXa3hqWStLWVR2OTJXWDRleXhWMk1OZnVPWGRXSForVW95dWNpSkZQMzM"class="macbook-neo-image">
+   </div>
+   </div>
+</body>
+</html>
